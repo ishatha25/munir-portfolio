@@ -327,7 +327,8 @@
       </h1>
       <p class="hero-sub">
         An AI-powered mobile app that listens to Qur'an recitation, evaluates pronunciation at the
-        phoneme level, and gives learners precise, rule-based Tajweed feedback in real time.
+        phoneme level, and gives learners detailed, rule-based Tajweed feedback within a couple of
+        minutes of recording.
       </p>
       <div class="hero-actions">
         <a href="#video" class="btn btn-primary">Watch the demo →</a>
@@ -352,8 +353,8 @@
       <div class="snap-label">Team members, split across app & model tracks</div>
     </div>
     <div class="snap-item">
-      <div class="snap-num">82.1%</div>
-      <div class="snap-label">Model accuracy after Beam Search decoding</div>
+      <div class="snap-num">2</div>
+      <div class="snap-label">Learning modes: Correction & Talqeen</div>
     </div>
     <div class="snap-item">
       <div class="snap-num">A+</div>
@@ -382,7 +383,7 @@
         <p>Munir scores recitation at the <strong>phoneme level</strong> — not just "right" or "wrong,"
         but exactly which sound diverged from the reference, mapped to specific Tajweed rules like
         Ghunnah and Madd. Two modes support two ways of learning: Talqeen (listen, then repeat) and
-        Correction (record and get instant diagnostic feedback).</p>
+        Correction (record and get detailed diagnostic feedback within a couple of minutes).</p>
       </div>
       <div class="card">
         <h3>Why phoneme-level matters</h3>
@@ -418,18 +419,18 @@
         <div class="pipe-num">02</div>
         <div>
           <h4>Phoneme recognition</h4>
-          <p>A pretrained Wav2Vec 2.0 model transcribes the recitation into phonemes, tuned for
-          Arabic Qur'anic speech.</p>
+          <p>An off-the-shelf, pretrained Wav2Vec 2.0 model — already fine-tuned on Qur'anic Arabic
+          speech by its original authors — transcribes the recitation into phonemes.</p>
           <div class="pipe-tags"><span class="tag">Wav2Vec 2.0</span><span class="tag">HuggingFace</span><span class="tag">CTC + Beam Search</span></div>
         </div>
       </div>
       <div class="pipe-step">
         <div class="pipe-num">03</div>
         <div>
-          <h4>Best-Match alignment</h4>
-          <p>An original alignment algorithm matches the recognized phonemes against the reference
-          dataset, built from the Qur'an API and EveryAyah API, to locate exactly where
-          pronunciation diverged.</p>
+          <h4>Phoneme alignment</h4>
+          <p>A custom alignment step matches the recognized phonemes against a reference dataset
+          to locate where pronunciation diverged — the details of this method are part of ongoing
+          research and kept private for now.</p>
           <div class="pipe-tags"><span class="tag">Custom algorithm</span><span class="tag">Phoneme dataset</span></div>
         </div>
       </div>
@@ -450,26 +451,29 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div class="eyebrow">Results</div>
-      <h2>Measured against the IqraEval evaluation method</h2>
-      <p>The pronunciation-assessment model was evaluated using phoneme-level metrics, following the
-      hierarchical detection-and-diagnostic approach from the IqraEval shared task.</p>
+      <h2>Built on a strong, pretrained model</h2>
+      <p>Munir integrates an off-the-shelf Wav2Vec 2.0 model that was already fine-tuned on Qur'anic
+      Arabic speech by its original authors, evaluated using the phoneme-level, detection-and-
+      diagnostic approach from the IqraEval shared task. Our contribution was building the phoneme
+      reference dataset used to align the model's output against Tajweed rules — full performance
+      figures are held back for now as related work is part of an ongoing research submission.</p>
     </div>
 
     <div class="results-grid reveal">
       <div class="result-cell">
-        <div class="rc-val">82.1%</div>
-        <div class="rc-sub">Accuracy on the open test set</div>
-        <div class="rc-note">up from 76.9% pre–Beam Search</div>
+        <div class="rc-val">Pretrained</div>
+        <div class="rc-sub">Wav2Vec 2.0 base model</div>
+        <div class="rc-note">fine-tuned by original authors</div>
       </div>
       <div class="result-cell">
-        <div class="rc-val">42.36%</div>
-        <div class="rc-sub">F1-score</div>
-        <div class="rc-note">phoneme-level detection</div>
+        <div class="rc-val">Custom</div>
+        <div class="rc-sub">Phoneme reference dataset</div>
+        <div class="rc-note">built for alignment, not model training</div>
       </div>
       <div class="result-cell">
-        <div class="rc-val">0.21</div>
-        <div class="rc-sub">Phoneme Error Rate (PER)</div>
-        <div class="rc-note">down from 0.54 after field adaptation</div>
+        <div class="rc-val">P·R·F1</div>
+        <div class="rc-sub">Phoneme-level metrics</div>
+        <div class="rc-note">precision, recall, F1-score</div>
       </div>
       <div class="result-cell">
         <div class="rc-val">2</div>
@@ -477,8 +481,8 @@
         <div class="rc-note">Correction · Talqeen</div>
       </div>
     </div>
-    <p class="results-note">Beam Search decoding (CTC + PyCTCDecode) was applied to improve sequence
-    prediction quality, which is what drove the accuracy gain from 76.9% to 82.1%.</p>
+    <p class="results-note">Full performance numbers are omitted here while related work is being
+    prepared for research submission — happy to share details directly on request.</p>
   </div>
 </section>
 
@@ -487,8 +491,8 @@
     <div class="section-head reveal">
       <div class="eyebrow">Watch it work</div>
       <h2>Munir, in under a few minutes</h2>
-      <p>A walkthrough of the app: recording a recitation, and seeing the Tajweed feedback come back
-      in real time.</p>
+      <p>A walkthrough of the app: recording a recitation, and seeing the detailed Tajweed feedback
+      come back.</p>
     </div>
     <div class="video-frame reveal">
       <iframe src="https://www.youtube-nocookie.com/embed/j-7Mti35vbQ" title="Munir promo video"
@@ -517,8 +521,8 @@
 
       <ul class="role-list">
         <li>Built the Flutter app end to end with one teammate — the two of us owned the full app-development track</li>
-        <li>Connected the Flutter frontend to the Flask REST API myself, wiring up the full request/response flow</li>
-        <li>Built the complete phoneme reference dataset myself, sourced from the Qur'an API and EveryAyah API</li>
+        <li>Connected the full pipeline myself — the Flutter app → Flask REST API (deployed on Render) → the Wav2Vec 2.0 evaluation pipeline hosted on a Hugging Face Space</li>
+        <li>Built the complete phoneme reference dataset myself, sourced from the Qur'an API and EveryAyah API, and used it to power the verse-matching step</li>
         <li>Supported the 3-person model track (the other half of the team) on integrating and evaluating the Wav2Vec 2.0 pipeline</li>
       </ul>
     </div>
